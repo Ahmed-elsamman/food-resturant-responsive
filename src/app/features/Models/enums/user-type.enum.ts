@@ -1,0 +1,17 @@
+export enum UserType {
+    Client = 1,
+    Inspector = 2,
+    CompanyAdmin = 3,
+    Supervisor = 4,
+    Admin = 5,
+    CompanyMember = 6,
+    Markting = 7,
+    Assistant = 8,
+    Facility = 9,
+    OrderDataEntry = 10,
+    AssignmentOffice = 11,
+    InspectorActivationOffice = 12,
+    SupervisorQC = 13,
+    QC = 14,
+    INSPECTION_MANAGER = 15,
+}

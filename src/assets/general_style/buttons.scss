@@ -1,0 +1,64 @@
+.btn_ {
+    height: $btn_height;
+    border-radius: $border_radius;
+    font-size: $btn_font_size;
+    color: $white;
+    cursor: pointer;
+    transition: 0.5s;
+    border: 2px solid transparent;
+    background-color: transparent;
+    text-decoration: none !important;
+    padding: $btn_padding;
+
+    p {
+        color: $white;
+    }
+
+    .img_ {
+        filter: brightness(0) invert(1);
+    }
+
+
+    &.small {
+        height: $btn_height_small;
+    }
+
+    /*
+    * Colors
+    */
+
+    // Green
+    &.green{
+        background-color: $green;
+        border-color: $green;
+    }
+
+    &.green:hover {
+        background-color: $btn_green_hover_black;
+        border-color: $btn_green_hover_black;
+    }
+
+
+
+    //dark
+    &.dark{
+        background-color: $black_solid;
+        border-color: $black_solid;
+    }
+
+    &.dark:hover {
+        background-color: $btn_black_hover_green;
+;
+        border-color: $btn_black_hover_green;
+;
+    }
+
+    // red
+    &.red{
+        background-color: $red;
+        border-color: $red;
+    }
+
+  
+}
+
