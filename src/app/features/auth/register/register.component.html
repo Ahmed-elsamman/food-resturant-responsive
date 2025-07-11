@@ -11,23 +11,119 @@
                     <h1 class="display-4 greenC_ text-uppercase ">Welcome Back!</h1>
                     <p class="lead">Please register to your account</p>
                 </div>
-                <form class="g-4">
+                <form class="g-4" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                     <div class="form-group my-5">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Enter email">
+                        <label for="name">name </label>
+                        <input type="text" class="form-control" id="name" aria-describedby="nameHelp"
+                            placeholder="Enter name" formControlName="name">
+
+                        @if(registerForm.get('name')?.errors && registerForm.get('name')?.touched) {
+                        @if(registerForm.get('name')?.errors?.['required']) {
+                        <div class="alert alert-danger p-2 m-1" role="alert">
+                            Name is required.
+                        </div>
+                        }
+                        @if(registerForm.get('name')?.errors?.['minlength']) {
+                        <div class="alert alert-danger p-2 m-1" role="alert">
+                            Name must be at least 6 characters long.
+                        </div>
+                        }
+                        @if(registerForm.get('name')?.errors?.['maxLength']) {
+                        <div class="alert alert-danger p-2 m-1" role="alert">
+                            name must be at most 50 characters long.
+                        </div>
+                        }
+                        }
+
+                    </div>
+
+                    <div class="form-group my-5">
+                        <label for="email">Email address</label>
+                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                            placeholder="Enter email" formControlName="email">
                         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
                             else.</small>
+                        @if(registerForm.get('email')?.errors && registerForm.get('email')?.touched) {
+                        @if(registerForm.get('email')?.errors?.['required']) {
+                        <div class="alert alert-danger p-2 m-1" role="alert">
+                            email is required.
+                        </div>
+                        }
+                        @if(registerForm.get('email')?.errors?.['email']) {
+                        <div class="alert alert-danger p-2 m-1" role="alert">
+                            email must be a valid email address.
+                        </div>
+                        }
+
+                        }
                     </div>
                     <div class="form-group my-5">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password"
+                            formControlName="password">
+                   
+                    @if(registerForm.get('password')?.errors && registerForm.get('password')?.touched) {
+                    @if(registerForm.get('password')?.errors?.['required']) {
+                    <div class="alert alert-danger p-2 m-1" role="alert">
+                        password is required.
                     </div>
-                    <div class="form-check my-4">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                    }
+                    @if(registerForm.get('password')?.errors?.['minlength']) {
+                    <div class="alert alert-danger p-2 m-1" role="alert">
+                        password must be at least 3 characters long.
                     </div>
+                    }
+                    @if(registerForm.get('password')?.errors?.['maxLength']) {
+                    <div class="alert alert-danger p-2 m-1" role="alert">
+                        password must be at most 50 characters long.
+                    </div>
+                    }
+                    @if(registerForm.get('confirmPassword')?.errors?.['notMatching']) {
+                    <div class="alert alert-danger p-2 m-1" role="alert">
+                        Passwords do not match.
+                    </div>
+                    }
+                    }
+                     </div>
+                    <div class="form-group my-5">
+                        <label for="confirmPassword">Password</label>
+                        <input type="password" class="form-control" id="confirmPassword" placeholder="confirmPassword"
+                            formControlName="confirmPassword">
+                        @if(registerForm.get('confirmPassword')?.errors && registerForm.get('confirmPassword')?.touched) {
+                        @if(registerForm.get('confirmPassword')?.errors?.['required']) {
+                        <div class="alert alert-danger p-2 m-1" role="alert">
+                            confirmPassword is required.
+                        </div>
+                        }
+                        @if(registerForm.get('confirmPassword')?.errors?.['minlength']) {
+                        <div class="alert alert-danger p-2 m-1" role="alert">
+                            confirmPassword must be at least 6 characters long.
+                        </div>
+                        }
+                        @if(registerForm.get('confirmPassword')?.errors?.['maxLength']) {
+                        <div class="alert alert-danger p-2 m-1" role="alert">
+                            confirmPassword must be at most 50 characters long.
+                        </div>
+                        }
+                        @if(registerForm.get('confirmPassword')?.errors?.['notMatching']) {
+                        <div class="alert alert-danger p-2 m-1" role="alert">
+                            confirmPasswords do not match.
+                        </div>
+                        }
+                    }
+                    </div>
+
                     <button type="submit" class="btn greenBG_">Submit</button>
+                    @if(successMessage) {
+                    <div class="alert alert-success mt-3" role="alert">
+                        {{ successMessage }}    
+                    </div>
+                    }
+                    @if(errorMessage) {
+                    <div class="alert alert-danger mt-3" role="alert">
+                        {{ errorMessage }}
+                    </div>
+                    }
                 </form>
             </div>
         </div>
