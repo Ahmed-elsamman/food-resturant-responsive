@@ -1,22 +1,13 @@
-<div class="error-page">
-    <div class="error-wrapper">
+<div class="error-page d-flex flex-column align-items-center justify-content-center ">
+    <div class="error-wrapper d-flex flex-column align-items-center justify-content-center  text-center">
         <div class="error-img">
-            <img src="assets/images/pizza-s-1.webp" alt="error image">
+
+            <img [src]="errors[errorStatus]?.errorImg || 'assets/images/pizza-s-1.webp'" alt="error image" class=" mb-3 rounded" >
         </div>
-        <div class="error-comp ">
-
-            <h3 class="error-title f_Bold">
-                الصفحة غير موجودة
-            </h3>
-            <p class="error-subTilte f_Regular m-auto">
-                يبدو أن الرابط الذي تحاول الوصول إليه غير صحيح أو لم يعد موجودًا.
-                يمكنك العودة إلى الصفحة الرئيسية أو تصفح الأقسام الأخرى.
-            </p>
-        </div>
-
-        <button class="error-btn btn_ green f_Bold uk-flex uk-flex-middle uk-flex-center cursor g-2">
-            العودة الي الصفحه الرئيسيه
-        </button>
-    </div>
-
+      <h3 class="error-title f_Bold">{{errors[errorStatus]?.message || 'Unknown Error'}}</h3>
+      <p class="error-subTilte f_Regular m-auto mb-4">{{errors[errorStatus]?.subMessage || 'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى لاحقًا.'}}</p>
+      <button class="error-btn btn greenBG_ f_Bold py-2" (click)="navigateToHome()">
+        العودة الي الصفحه الرئيسيه
+      </button>
+  </div>
 </div>

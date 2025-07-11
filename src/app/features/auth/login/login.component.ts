@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-import { log } from 'node:console';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -25,10 +25,10 @@ export class LoginComponent {
     rememberMe:new FormControl(false)
   });
 
-  constructor( private authService: AuthService ,private router:Router) {}
+  constructor( private authService: AuthService ,private router:Router ,@Inject(PLATFORM_ID) private PlatformID:any) {}
 
   ngOnInit() {
-    console.log('LoginComponent initialized',this.authService.isAuthenticated$.value);
+    console.log('LoginComponent initialized',this.authService.isUserLogging());
     
     }
 
@@ -36,12 +36,17 @@ export class LoginComponent {
 onSubmit(){
   this.authService.login(this.loginForm.value).subscribe({
     next: (response) => {
-      localStorage.setItem('token', response.token);
-      localStorage.setItem('currntUser', JSON.stringify(response.user));
+      if(isPlatformBrowser(this.PlatformID)) {
+
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('currntUser', JSON.stringify(response.user));
+      }
       this.successMessage = response.message;
+      // this.authService.isAuthenticated(true); // Set authenticated state to true after login
+      this.authService.isAuthenticatedSubject.next(true); // Set authenticated state to true after login
       this.loginForm.reset(); 
-      this.router.navigate(['/slider']);
-    console.log('LoginComponent initialized -- 2',this.authService.isAuthenticated$.value);
+      this.router.navigate(['/home']); // Navigate to home after successful login
+      console.log('LoginComponent initialized -- 2',this.authService.isUserLogging());
 
     },
     error: (error) => {
