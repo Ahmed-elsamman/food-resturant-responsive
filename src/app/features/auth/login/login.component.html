@@ -11,23 +11,72 @@
                     <h1 class="display-4 greenC_ text-uppercase ">Welcome Back!</h1>
                     <p class="lead">Please login to your account</p>
                 </div>
-                <form class="g-4">
+                <form class="g-4" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                     <div class="form-group my-5">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Enter email">
-                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                        <label for="email">Email address</label>
+                        <input type="email" class="form-control" id="email" name="email" formControlName="email"
+                            aria-describedby="emailHelp" placeholder="Enter Your email">
+                        <small id="emailHelp" class="form-text text-muted greenC_">We'll never share your email with
+                            anyone
                             else.</small>
+
+                        @if (loginForm.get('email')?.errors && loginForm.get('email')?.touched) {
+                        @if (loginForm.get('email')?.errors?.['required']) {
+                        <div class="alert alert-danger p-2 m-0" role="alert">
+                            Email is required.
+                        </div>
+                        @if (loginForm.get('email')?.errors?.['email']) {
+                        <div class="alert alert-danger p-2 m-0" role="alert">
+                            Email must be at least 5 characters long.
+                        </div>
+                        }
+                        }
+                        @if (loginForm.get('email')?.errors?.['maxlength']) {
+                        <div class="alert alert-danger p-2 m-0" role="alert">
+                            Email must be at most 50 characters long.
+                        </div>
+                        }
+                        }
                     </div>
                     <div class="form-group my-5">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Password"
+                            formControlName="password">
+
+                        @if (loginForm.get('password')?.errors && loginForm.get('password')?.touched) {
+                        @if (loginForm.get('password')?.errors?.['required']) {
+                        <div class="alert alert-danger m-0 p-2" role="alert">
+                            Password is required.
+                        </div>
+                        }
+                        @if (loginForm.get('password')?.errors?.['minlength']) {
+                        <div class="alert alert-danger m-0 p-2" role="alert">
+                            Password must be at least 3 characters long.
+                        </div>
+                        }
+                        @if (loginForm.get('password')?.errors?.['maxlength']) {
+                        <div class="alert alert-danger m-0 p-2" role="alert">
+                            Password must be at most 15 characters long.
+                        </div>
+                        }
+                        }
                     </div>
                     <div class="form-check my-4">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" formControlName="rememberMe">
+                        <label class="form-check-label" for="exampleCheck1">Remember me</label>
                     </div>
-                    <button type="submit" class="btn greenBG_">Submit</button>
+                    <button type="submit" class="btn btn_ green w-100 text-white "
+                        [disabled]="!loginForm.valid">Login</button>
+                    @if(successMessage) {
+                    <div class="alert alert-success mt-3" role="alert">
+                        {{ successMessage }}
+                    </div>
+                    }
+                    @if(errorMessage) {
+                    <div class="alert alert-danger mt-3" role="alert">
+                        {{ errorMessage }}
+                    </div>
+                    }
                 </form>
             </div>
         </div>
